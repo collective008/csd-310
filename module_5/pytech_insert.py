@@ -6,18 +6,35 @@ client = MongoClient(url)
 
 db = client.pytech
 
+thorin = {
+    "student_id": "1007",
+    "first_name": "Thorin",
+    "last_name": "Oakenshield",
+    }
+
+bilbo = {
+    "student_id": "1008",
+    "first_name": "Bilbo",
+    "last_name": "Baggins",
+    }
+
+frodo = {
+    "student_id": "1009",
+    "first_name": "Frodo",
+    "last_name": "Baggins",
+    }
+
 students = db.students
 
-student_list = students.find({})
+thorin_student_id = students.insert_one(thorin).inserted_id
 
-print("\n  -- DISPLAYING STUDENTS DOCUMENTS FROM find() QUERY --")
+bilbo_student_id = students.insert_one(bilbo).inserted_id
 
-for doc in student_list:
-    print("  Student ID: " + doc["student_id"] + "\n  First Name: " + doc["first_name"] + "\n  Last Name: " + doc["last_name"] + "\n")
+frodo_student_id = students.insert_one(frodo).inserted_id
 
-bilbo = students.find_one({"student_id": "1008"})
+print("\n  -- INSERT STATEMENTS --")
+print("  Inserted student record Thorin Oakenshield into the students collection with document_id " + str(thorin_student_id))
+print("  Inserted student record Bilbo Baggins into the students collection with document_id " + str(bilbo_student_id))
+print("  Inserted student record Frodo Baggins into the students collection with document_id " + str(frodo_student_id))
 
-print("\n  -- DISPLAYING STUDENT DOCUMENT FROM find_one() QUERY --")
-print("  Student ID: " + bilbo["student_id"] + "\n  First Name: " + bilbo["first_name"] + "\n  Last Name: " + bilbo["last_name"] + "\n")
-
-input("\n  End of program, press any key to continue...")
+input("\n\n  End of program, press any key to exit... ")
