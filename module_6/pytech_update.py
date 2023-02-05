@@ -1,15 +1,6 @@
-""" 
-    Title: pytech_update.py
-    Author: Professor Krasso
-    Date: 10 July 2020
-    Description: Test program for updating a document in the pytech collection
-"""
-
-""" import statements """
 from pymongo import MongoClient
 
-# MongoDB connection string 
-url = "mongodb+srv://admin:admin@cluster0.rsnru.mongodb.net/pytech?retryWrites=true&w=majority"
+url = "mongodb+srv://admin:admin@cluster0.ompfwnl.mongodb.net/?retryWrites=true&w=majority"
 
 # connect to the MongoDB cluster 
 client = MongoClient(url)
