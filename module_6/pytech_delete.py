@@ -1,15 +1,7 @@
-""" 
-    Title: pytech_delete.py
-    Author: Professor Krasso
-    Date: 13 July 2020
-    Description: Test program for deleting documents from the pytech collection
-"""
-
-""" import statements """
 from pymongo import MongoClient
 
 # MongoDB connection string 
-url = "mongodb+srv://admin:admin@cluster0.rsnru.mongodb.net/pytech?retryWrites=true&w=majority"
+url = "mongodb+srv://admin:admin@cluster0.ompfwnl.mongodb.net/?retryWrites=true&w=majority"
 
 # connect to the MongoDB cluster 
 client = MongoClient(url)
