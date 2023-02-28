@@ -32,10 +32,10 @@ def show_menu():
 def show_books(_cursor):
     # inner join query 
     _cursor.execute("SELECT book_id, book_name, author, details from book")
-    # get the results from the cursor object 
+    # get results from the cursor object 
     books = _cursor.fetchall()
     print("\n  -- BOOK LISTING --")    
-    # iterate over the player data set and display the results 
+    # iterate over book data set and display the results 
     for book in books:
         print("  Title: {}\n  Author: {}\n  Details: {}\n".format(book[1], book[2], book[3]))
 
@@ -47,7 +47,7 @@ def show_locations(_cursor):
         print("     {}\n".format(location[1]))
 
 def validate_user():
-    """ validate the users ID """
+    """ validate users ID """
     try:
         user_id = int(input('\n      Enter a customer id <Example 1 for user_id 1>: '))
         if user_id < 0 or user_id > 3:
@@ -59,7 +59,7 @@ def validate_user():
         sys.exit(0)
     
 def show_account_menu():
-    """ display the users account menu """
+    """ display users account menu """
     try:
         print("\n      -- Customer Menu --")
         print("        1. Wishlist\n        2. Add Book\n        3. Main Menu")
@@ -70,7 +70,7 @@ def show_account_menu():
         sys.exit(0)
 
 def show_wishlist(_cursor, _user_id):
-    """ query the database for a list of books added to the users wishlist """
+    """ query database for a list of books in users wishlist """
     _cursor.execute("SELECT user.user_id, user.first_name, user.last_name, book.book_id, book.book_name, book.author " + 
                     "FROM wishlist " + 
                     "INNER JOIN user ON wishlist.user_id = user.user_id " + 
@@ -82,7 +82,7 @@ def show_wishlist(_cursor, _user_id):
         print("        Title: {}\n        Author: {}\n".format(book[4], book[5]))
 
 def show_books_to_add(_cursor, _user_id):
-    """ query the database for a list of books not in the users wishlist """
+    """ query database for a list of books not in users wishlist """
     query = ("SELECT book_id, book_name, author, details "
             "FROM book "
             "WHERE book_id NOT IN (SELECT book_id FROM wishlist WHERE user_id = {})".format(_user_id))
