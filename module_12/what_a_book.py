@@ -54,7 +54,7 @@ def validate_user():
     try:
         user_id = int(input('\n      Enter a customer id <Example 1 for user id 1> '))
         if user_id < 1 or user_id > 3:
-            print("\n  Invalid customer #, try again...\n")
+            print("\n  Invalid customer #, try again...")
             return validate_user()
         return user_id
     except ValueError:
