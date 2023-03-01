@@ -5,12 +5,12 @@
     Description: WhatABook program; Console program that interfaces with a MySQL database
 """
 
-""" import statements """
+# import statements
 import sys
 import mysql.connector
 from mysql.connector import errorcode
 
-""" database config object """
+# database config object
 config = {
     "user": "whatabook_user",
     "password": "MySQL8IsGreat!",
@@ -19,18 +19,20 @@ config = {
     "raise_on_warnings": True
 }
 
-""" display main menu """
+# display main menu
 def show_menu():
     print("\n  -- Main Menu --")
     print("    1. View Books\n    2. View Store Locations\n    3. My Account\n    4. Exit Program")
     try:
-        choice = int(input('      <Example: enter 1 for book listing> '))
+        choice = int(input('      Example: enter 1 for book listing 
+                           
+                           '))
         return choice
     except ValueError:
         print("\n  Invalid number, program terminated...\n")
         sys.exit(0)
 
-""" display available books """
+# display available books
 def show_books(_cursor):
     # inner join query 
     _cursor.execute("SELECT book_id, book_name, author, details from book")
@@ -41,7 +43,7 @@ def show_books(_cursor):
     for book in books:
         print("  Title: {}\n  Author: {}\n  Details: {}\n".format(book[1], book[2], book[3]))
 
-""" display locations """
+# display locations
 def show_locations(_cursor):
     _cursor.execute("SELECT store_id, locale from store")
     locations = _cursor.fetchall()
@@ -49,10 +51,10 @@ def show_locations(_cursor):
     for location in locations:
         print("     {}\n".format(location[1]))
 
-""" validate users ID """
+# validate users ID
 def validate_user():
     try:
-        user_id = int(input('\n      Enter a customer id <Example 1 for user id 1> '))
+        user_id = int(input('\n      Enter a customer id. Example: 1 for user id 1 >> '))
         if user_id < 1 or user_id > 3:
             print("\n  Invalid customer #, try again...")
             return validate_user()
@@ -61,18 +63,18 @@ def validate_user():
         print("\n  Invalid number, program terminated...\n")
         sys.exit(0)
     
-""" display users account menu """
+# display users account menu
 def show_account_menu():
     try:
         print("\n      -- Customer Menu --")
         print("        1. Wishlist\n        2. Add Book\n        3. Main Menu")
-        account_option = int(input('        <Example: enter 1 for wishlist> '))
+        account_option = int(input('        Example: enter 1 for wishlist >> '))
         return account_option
     except ValueError:
         print("\n  Invalid number, program terminated...\n")
         sys.exit(0)
 
-""" query database for a list of books in users wishlist """
+# query database for a list of books in users wishlist
 def show_wishlist(_cursor, _user_id):
     _cursor.execute("SELECT user.user_id, user.first_name, user.last_name, book.book_id, book.book_name, book.author " + 
                     "FROM wishlist " + 
@@ -84,7 +86,7 @@ def show_wishlist(_cursor, _user_id):
     for book in wishlist:
         print("        Title: {}\n        Author: {}\n".format(book[4], book[5]))
 
-""" query database for a list of books not in users wishlist """
+# query database for a list of books not in users wishlist
 def show_books_to_add(_cursor, _user_id):
     query = ("SELECT book_id, book_name, author, details "
             "FROM book "
@@ -99,7 +101,7 @@ def add_book_to_wishlist(_cursor, _user_id, _book_id):
     _cursor.execute("INSERT INTO wishlist(user_id, book_id) VALUES({}, {})".format(_user_id, _book_id))
 
 try:
-    """ try/catch block for handling potential MySQL database errors """ 
+    # try/catch block for handling potential MySQL database errors
     db = mysql.connector.connect(**config) # connect to the WhatABook database 
     cursor = db.cursor() # cursor for MySQL queries
     print("\n  Welcome to WhatABook! ")
@@ -112,11 +114,6 @@ try:
         # if the user selects option 2, call the show_locations method and display the configured locations
         if user_selection == 2:
             show_locations(cursor)
-        # if the user selection is less than 1 or greater than 4, display an invalid user selection
-        if user_selection < 1 or user_selection > 4:
-            print("\n      Invalid option, try again...")            
-        # display main menu
-        user_selection = show_menu()
         # if the user selects option 3, call the validate_user method to validate the entered user_id 
         # call the show_account_menu() to show the account settings menu
         if user_selection == 3:
@@ -144,10 +141,15 @@ try:
                     print("\n      Invalid option, please retry...")
                 # show the account menu 
                 account_option = show_account_menu()
+                # if the user selection is less than 1 or greater than 4, display an invalid user selection
+        if user_selection < 1 or user_selection > 4:
+            print("\n      Invalid option, try again...")            
+        # display main menu
+        user_selection = show_menu()
     print("\n\n  Program terminated...")
 
 except mysql.connector.Error as err:
-    """ handle errors """ 
+    # handle errors
     if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
         print("  The supplied username or password are invalid")
     elif err.errno == errorcode.ER_BAD_DB_ERROR:
@@ -155,5 +157,5 @@ except mysql.connector.Error as err:
     else:
         print(err)
 finally:
-    """ close the connection to MySQL """
+    # close the connection to MySQL
     db.close()
