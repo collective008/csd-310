@@ -141,7 +141,7 @@ try:
                     print("\n      Invalid option, please retry...")
                 # show the account menu 
                 account_option = show_account_menu()
-                # if the user selection is less than 1 or greater than 4, display an invalid user selection
+        # if the user selection is less than 1 or greater than 4, display an invalid user selection
         if user_selection < 1 or user_selection > 4:
             print("\n      Invalid option, try again...")            
         # display main menu
