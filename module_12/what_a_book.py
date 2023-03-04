@@ -24,9 +24,7 @@ def show_menu():
     print("\n  -- Main Menu --")
     print("    1. View Books\n    2. View Store Locations\n    3. My Account\n    4. Exit Program")
     try:
-        choice = int(input('      Example: enter 1 for book listing 
-                           
-                           '))
+        choice = int(input('      Example: enter 1 for book listing> '))
         return choice
     except ValueError:
         print("\n  Invalid number, program terminated...\n")
